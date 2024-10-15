@@ -1,25 +1,39 @@
-const draggable = document.getElementById("draggable");
+// Get all elements with the class 'sticky-note'
+const stickyNotes = document.querySelectorAll(".sticky-note");
 
-let isDragging = false;
-let offsetX, offsetY;
+stickyNotes.forEach((stickyNote) => {
+  let isDragging = false;
+  let offsetX, offsetY;
 
-draggable.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  offsetX = e.clientX - draggable.offsetLeft;
-  offsetY = e.clientY - draggable.offsetTop;
-  draggable.style.cursor = "grabbing";
-});
+  // Handle left-click drag for each sticky note
+  stickyNote.addEventListener("mousedown", (e) => {
+    if (e.button === 0) {
+      isDragging = true;
+      offsetX = e.clientX - stickyNote.offsetLeft;
+      offsetY = e.clientY - stickyNote.offsetTop;
+      stickyNote.style.cursor = "grabbing";
+    }
+  });
 
-document.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    const x = e.clientX - offsetX;
-    const y = e.clientY - offsetY;
-    draggable.style.left = `${x}px`;
-    draggable.style.top = `${y}px`;
-  }
-});
+  // Update position while dragging
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const x = e.clientX - offsetX;
+      const y = e.clientY - offsetY;
+      stickyNote.style.left = `${x}px`;
+      stickyNote.style.top = `${y}px`;
+    }
+  });
 
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-  draggable.style.cursor = "grab";
+  // Stop dragging on mouse up
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    stickyNote.style.cursor = "grab";
+  });
+
+  // React to right-click (contextmenu event) for each sticky note
+  stickyNote.addEventListener("contextmenu", (e) => {
+    e.preventDefault(); // Prevent default context menu
+    alert(`Right-clicked on ${stickyNote.innerText}`);
+  });
 });

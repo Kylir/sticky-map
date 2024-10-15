@@ -7,16 +7,18 @@ body {
   background-color: #f0f0f0;
 }
 
-#draggable {
+.sticky-note {
   width: 150px;
   height: 100px;
-  background-color: #3498db;
-  color: white;
+  background-color: #f39c12;
+  color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: grab;
   position: absolute;
   border-radius: 8px;
-  user-select: none; /* Prevents selecting text while dragging */
+  user-select: none;
+  padding: 10px;
+  font-size: 14px;
 }
